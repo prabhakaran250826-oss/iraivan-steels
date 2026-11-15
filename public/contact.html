@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Live Rate Booking & RFQ Desk | IRAIVAN STEELS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <!-- Persistent WebGL Architectural Background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Live Steel & Commodity Ticker Banner -->
+  <div class="ticker-bar">
+    <div class="ticker-badge">
+      <span class="pulse-dot"></span> LIVE COMMODITY FEED
+    </div>
+    <div class="ticker-track" id="tickerTrack">
+      <div class="ticker-item"><span class="ticker-name">Loading Live Steel & Commodity Rates…</span></div>
+    </div>
+    <div class="ticker-time" id="tickerTime">CONNECTING…</div>
+  </div>
+
+  <header>
+    <a class="logo" href="index.html">
+      <span class="logo-symbol">IS</span>
+      <span>IRAIVAN <span class="logo-highlight">STEELS</span></span>
+      <span class="logo-badge">PRIMARY MILLS</span>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="materials.html">Materials 3D & Rates</a>
+      <a href="builder.html">3D House Simulator</a>
+      <a href="scan.html">AI Quality Scan</a>
+      <a href="contact.html" aria-current="page">Live Rate Booking</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="corp-pill">★ SPOT COMMODITY TRADING & RATE BOOKING DESK</div>
+        <h2>Lock Live Spot Rates & Request Quotation</h2>
+        <p style="color:var(--mut);max-width:70ch">
+          Whether booking full truckload (FTL) primary TMT steel bundles, structural girders, or securing custom bills of materials from our 3D Building Simulator.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-top:1.5rem">
+      <div class="wrap contact-layout">
+        <!-- Form Side -->
+        <div class="contact-form-card">
+          <h3 style="color:#fff;margin-bottom:0.4rem">Spot Rate Booking & Procurement Form</h3>
+          <p style="color:var(--mut);font-size:0.9rem;margin-bottom:1.5rem">
+            Fields marked with an asterisk (*) are mandatory. Bookings are encrypted and recorded in our enterprise database.
+          </p>
+
+          <form id="f">
+            <label>
+              Full Name / Authorized Signatory *
+              <input name="name" required maxlength="100" autocomplete="name" placeholder="e.g. S. Ramanathan / Infra Project Head">
+            </label>
+
+            <label>
+              Direct Contact Phone *
+              <input name="phone" type="tel" required autocomplete="tel" placeholder="+91 98400 12345">
+            </label>
+
+            <label class="full">
+              Corporate / Site Email *
+              <input name="email" type="email" required autocomplete="email" placeholder="procurement@infraprojects.com">
+            </label>
+
+            <label>
+              Primary Commodity Category
+              <select name="material">
+                <option value="Iraivan Fe 550D TMT Rebar (12mm/16mm/20mm)">Iraivan Fe 550D TMT Rebar (12mm/16mm/20mm)</option>
+                <option value="Tata Tiscon 550D Super Ductile Rebar">Tata Tiscon 550D Super Ductile Rebar</option>
+                <option value="ISMB Heavy Structural Beams & Channels">ISMB Heavy Structural Beams & Channels</option>
+                <option value="Dalmia DSP / OPC 53 Grade Cement">Dalmia DSP / OPC 53 Grade Cement</option>
+                <option value="Class-A Wire-cut Red Clay Bricks">Class-A Wire-cut Red Clay Bricks</option>
+                <option value="MS Annealed Binding Wire (18 SWG)">MS Annealed Binding Wire (18 SWG)</option>
+                <option value="Turnkey Bill of Materials (Full House Plan)" selected>Turnkey Bill of Materials (Full House Plan)</option>
+              </select>
+            </label>
+
+            <label>
+              Required Tonnage / Volume
+              <input name="quantity" placeholder="e.g. 25 Metric Tons / 1,200 bags">
+            </label>
+
+            <label class="full">
+              Project Delivery Site Location
+              <input name="location" placeholder="e.g. Sriperumbudur Industrial Corridor / OMR, Chennai">
+            </label>
+
+            <label class="full">
+              Specific Mill Requirements & Delivery Schedule *
+              <textarea name="requirements" rows="8" required maxlength="3000" placeholder="Specify rebar diameters (8mm, 10mm, 12mm, 16mm, 20mm, 25mm, 32mm), standard 12-meter lengths, delivery milestone dates, or paste summary from 3D House Simulator..."></textarea>
+            </label>
+
+            <div class="full">
+              <button class="btn" id="sub" type="submit">Submit Spot Rate Booking to Iraivan Steels ➔</button>
+              <div id="msg" role="status"></div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Corporate Info Side -->
+        <div class="contact-info-card">
+          <div class="info-block">
+            <h4>IRAIVAN STEELS Corporate Office & Yard</h4>
+            <div style="display:flex;align-items:center;gap:0.75rem;margin:0.75rem 0 0.5rem">
+              <span class="logo-symbol" style="width:36px;height:36px;font-size:0.95rem">IS</span>
+              <div>
+                <strong style="display:block;color:#fff;font-size:1.15rem;letter-spacing:-0.01em">R.Ajmalkhan</strong>
+                <span style="font-size:0.72rem;color:var(--gold);font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Proprietor & Master Distributor</span>
+              </div>
+            </div>
+            <p style="color:var(--ink-secondary);line-height:1.6;margin-top:0.6rem">
+              <strong>Address:</strong><br>
+              No. 868, Near Kismath Ceramics / Kismath Titles,<br>
+              Rameswaram Main Road, Devakottai South,<br>
+              Devakottai, Tamil Nadu 630302
+            </p>
+          </div>
+
+          <div class="info-block">
+            <h4>Direct Desk & Booking Contacts</h4>
+            <p style="margin-bottom:0.5rem">
+              <strong>Direct Phone:</strong><br>
+              <a href="tel:+919940033757" style="color:var(--gold);font-weight:700;font-size:1.1rem;display:inline-flex;align-items:center;gap:0.35rem">
+                📞 +91 99400 33757
+              </a>
+            </p>
+            <p style="margin-bottom:0.5rem">
+              <strong>Direct Email:</strong><br>
+              <a href="mailto:asmi29042009@gmail.com" style="color:#00d2ff;font-weight:600">
+                ✉ asmi29042009@gmail.com
+              </a>
+            </p>
+            <p>
+              <strong>Location:</strong><br>
+              <span style="color:var(--mut)">Devakottai South, Sivaganga District, Tamil Nadu 630302</span>
+            </p>
+          </div>
+
+          <div class="info-block assurance-box">
+            <h4>The Iraivan Steels Commitment</h4>
+            <ul class="assurance-list">
+              <li>✓ 100% Primary Billet Fe 550D TMT with physical Mill Test Certificates.</li>
+              <li>✓ Guaranteed weighbridge accuracy with computerized slip verification.</li>
+              <li>✓ Locked spot rates honored for 48 hours from proforma generation.</li>
+              <li>✓ Direct dispatch from Devakottai yard with computerized weighing.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-bottom" style="border-top:none;padding:1rem 0">
+      <span>© IRAIVAN STEELS LIMITED. All rights reserved.</span>
+      <span>Primary Mill Direct Despatch</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

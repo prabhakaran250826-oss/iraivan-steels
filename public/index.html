@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>IRAIVAN STEELS | Real-Time Steel Commodity Market & Structural Materials</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <!-- Cinematic 4K Real-World Construction Intro (Plays on Site Entry - Overlay Only) -->
+  <div id="cinematicIntro" aria-hidden="true">
+    <video id="introVideo" class="intro-video-bg" autoplay muted playsinline preload="auto">
+      <source id="introVideoSrc" src="assets/intro/intro_construction_4k.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="intro-video-overlay"></div>
+
+    <div class="intro-hud">
+      <div class="intro-brand-tag">
+        <span class="logo-symbol">IS</span>
+        <div>
+          <strong style="color:#fff;font-size:1.15rem;letter-spacing:-0.02em">IRAIVAN STEELS</strong>
+          <span style="display:block;font-size:0.7rem;color:var(--gold);letter-spacing:0.08em">FAMOUS LANDMARK ARCHITECTURE & STEEL</span>
+        </div>
+      </div>
+
+      <!-- Rotating Famous Landmark Identification Pill -->
+      <div class="intro-project-pill" id="introProjectBadge">
+        <span class="intro-badge-pulse"></span>
+        <span class="intro-project-counter" id="introProjectCounter">PROJECT 1 / 4</span>
+        <span class="intro-project-sep">·</span>
+        <strong id="introProjectName">ESO Supernova Architectural Center</strong>
+        <span class="intro-project-loc" id="introProjectLoc">Munich, Germany</span>
+      </div>
+
+      <!-- Real-time Engineering Telemetry HUD -->
+      <div class="intro-telemetry-panel">
+        <div class="telemetry-item">
+          <strong id="hudMetric1Val">1,250 MT</strong>
+          <span id="hudMetric1Lbl">Structural Steel</span>
+        </div>
+        <div class="telemetry-item">
+          <strong id="hudMetric2Val">1,540 m²</strong>
+          <span id="hudMetric2Lbl">Faceted Glazing</span>
+        </div>
+        <div class="telemetry-item">
+          <strong id="hudMetric3Val">8,400 m³</strong>
+          <span id="hudMetric3Lbl">Reinforced Shell</span>
+        </div>
+        <div class="telemetry-item">
+          <strong id="hudMetric4Val">+15.5 m</strong>
+          <span id="hudMetric4Lbl">Clear Span</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro-center-caption">
+      <div class="corp-pill" id="introProjectCategory">★ ORGANIC CONCRETE SHELL & GEODESIC DOME</div>
+      <div class="intro-phase-title" id="introPhaseTitle">Sub-Grade Excavation & Monolithic Foundation</div>
+      <div class="intro-phase-sub" id="introPhaseSub">Sub-grade soil stabilization, isolated footing pads and monolithic plinth foundation.</div>
+    </div>
+
+    <div class="intro-bottom-bar">
+      <div class="intro-progress-track">
+        <div class="intro-progress-bar">
+          <div class="intro-progress-fill" id="introProgressFill"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--mut);margin-top:0.35rem">
+          <span id="introElapsed">00:00</span>
+          <span id="introBottomTrackTag">PROJECT 1 OF 4: ESO SUPERNOVA · 4K ULTRA-HD</span>
+          <span id="introRemaining">00:15</span>
+        </div>
+      </div>
+
+      <div class="intro-actions">
+        <button class="btn ghost intro-switch-btn" id="btnNextProject" type="button" title="Rotate to next famous building project">
+          <span class="btn-text-full">Next Project ↻</span><span class="btn-text-short">Next ↻</span>
+        </button>
+        <button class="btn ghost" id="btnIntroReplay" type="button" title="Replay Video">Replay ⟲</button>
+        <button class="btn" id="btnEnterSite" type="button">
+          <span class="btn-text-full">Enter Website ➔</span><span class="btn-text-short">Enter ➔</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Persistent WebGL Architectural Background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Live Steel & Commodity Ticker Banner (Gold-Style Realtime Feed) -->
+  <div class="ticker-bar">
+    <div class="ticker-badge">
+      <span class="pulse-dot"></span> LIVE COMMODITY FEED
+    </div>
+    <div class="ticker-track" id="tickerTrack">
+      <div class="ticker-item"><span class="ticker-name">Loading Live Steel & Commodity Rates…</span></div>
+    </div>
+    <div class="ticker-time" id="tickerTime">CONNECTING TO MANDI EXCHANGE…</div>
+  </div>
+
+  <header>
+    <a class="logo" href="index.html">
+      <span class="logo-symbol">IS</span>
+      <span>IRAIVAN <span class="logo-highlight">STEELS</span></span>
+      <span class="logo-badge">PRIMARY MILLS</span>
+    </a>
+    <nav>
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="materials.html">Materials 3D & Rates</a>
+      <a href="builder.html">3D House Simulator</a>
+      <a href="scan.html">AI Quality Scan</a>
+      <a href="contact.html">Live Rate Booking</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Ultra-Realistic 3D Animated Hero Section -->
+    <section class="hero-split">
+      <div class="wrap hero-grid">
+        <div class="hero-content">
+          <div class="corp-pill">★ PRIMARY PRODUCER & DISTRIBUTOR · IS 1786 CERTIFIED</div>
+          <h1>High-Performance Steel. Uncompromising Strength.</h1>
+          <p class="hero-lead">
+            Authorized master distributor of <strong>Fe 550D TMT structural rebar</strong>, heavy <strong>ISMB girders</strong>, and certified industrial construction materials. Transparent daily commodity rates updated in real-time.
+          </p>
+
+          <div class="row hero-actions">
+            <button class="btn" id="btnHeroWatchIntro" type="button">▶ Watch Landmark Construction Intro (4 Projects ↻)</button>
+            <a class="btn alt" href="#ratesTerminal">Live Steel Rates</a>
+            <a class="btn ghost" href="materials.html">3D Materials Lab</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <strong>Fe 550D</strong>
+              <span>High-Yield Earthquake Ductility Steel</span>
+            </div>
+            <div class="stat-item">
+              <strong>₹61,800</strong>
+              <span>Current Spot / MT (Primary Rebar)</span>
+            </div>
+            <div class="stat-item">
+              <strong>100%</strong>
+              <span>Mill Test Certificate Traceability</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Realistic Interactive Building Construction Simulator (Three.js Animated Showcase) -->
+        <div class="hero-3d-stage">
+          <div class="stage-head">
+            <div class="stage-tag">
+              <span class="pulse-dot"></span> <strong>3D Real-Time Building Construction Simulator</strong>
+            </div>
+            <div class="stage-header-actions">
+              <span id="animStageName" class="stage-name-badge">1. Excavation & Footings</span>
+              <button class="btn-sm" id="btnAnimCam" title="Toggle Cinematic Auto Camera">Cinematic Cam: ON</button>
+              <button class="btn-sm" id="btnAnimReplay" title="Replay Construction from Scratch">Replay ⟲</button>
+            </div>
+          </div>
+
+          <div class="stage-viewport">
+            <canvas id="hero3dCanvas"></canvas>
+            <div class="stage-overlay-stats">
+              <div>
+                <span style="color:var(--mut);font-size:0.75rem">STRUCTURAL PHASE:</span>
+                <strong id="animPhaseDesc" style="color:#fff;display:block">Precision trenches & RCC footings</strong>
+              </div>
+              <div style="text-align:right">
+                <span style="color:var(--mut);font-size:0.75rem">PROGRESS:</span>
+                <strong id="animProgressPct" style="color:var(--gold);display:block">0%</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-controls-bar">
+            <div class="anim-scrub-row">
+              <button id="btnAnimPlay" class="btn-ctrl" type="button">Pause ❚❚</button>
+              <input type="range" id="animScrubber" min="0" max="100" value="0" step="0.2" aria-label="3D Construction Timeline Scrubber">
+              <span id="animSpeedToggle" class="speed-pill">1x</span>
+            </div>
+
+            <div class="anim-phase-pills" id="animPhasePills">
+              <button class="phase-btn" data-phase="0" aria-pressed="true">1. Footings</button>
+              <button class="phase-btn" data-phase="20">2. Columns</button>
+              <button class="phase-btn" data-phase="42">3. Brickwork</button>
+              <button class="phase-btn" data-phase="65">4. Slabs & Walls</button>
+              <button class="phase-btn" data-phase="82">5. Roofing</button>
+              <button class="phase-btn" data-phase="96">6. Finishes</button>
+            </div>
+
+            <div class="stage-hint-text">
+              <span>🖱️ Drag to orbit 360° · Scroll to zoom · Real-time Three.js Parametric Architecture</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real-Time Steel & Commodity Price Analysis Terminal (Like Gold Price Terminal) -->
+    <section class="section-price-terminal" id="ratesTerminal">
+      <div class="wrap">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <div class="corp-pill">COMMODITY EXCHANGE BENCHMARK</div>
+            <h2>Live Daily Price Terminal & <span class="gold-accent">Market Analysis</span></h2>
+            <p style="color:var(--mut);max-width:68ch;margin-top:0.4rem">
+              Real-time spot rates comparing today's open market against previous day close, with 7-day trend trajectories, 24-hour ranges, and instant weight converters.
+            </p>
+          </div>
+          <div class="terminal-meta">
+            <div class="meta-pill"><strong>Market:</strong> IRAIVAN SPOT DESK</div>
+            <div class="meta-pill"><strong>Status:</strong> <span style="color:var(--green)">● TRADING OPEN</span></div>
+          </div>
+        </div>
+
+        <!-- Price Cards Grid -->
+        <div class="prices-grid" id="pricesGrid">
+          <!-- Populated dynamically by intro.js from /api/prices -->
+        </div>
+
+        <!-- Instant Steel Weight-to-Price Estimator -->
+        <div class="estimator-box">
+          <div class="estimator-inputs">
+            <h3 style="color:#fff;display:flex;align-items:center;gap:0.5rem">
+              <span>⚡</span> Instant Steel Weight-to-Price Calculator
+            </h3>
+            <p style="color:var(--mut);font-size:0.88rem">
+              Calculate exact spot procurement cost based on today's live Mandi benchmark price.
+            </p>
+
+            <div class="input-group">
+              <label>Select Commodity / Grade</label>
+              <select id="estProduct" class="custom-select"></select>
+            </div>
+
+            <div class="input-group">
+              <label>Procurement Volume</label>
+              <div class="input-row">
+                <input id="estQty" type="number" min="0.1" step="0.5" value="5" placeholder="Quantity">
+                <select id="estUnit" class="custom-select" style="max-width:130px">
+                  <option value="mt">Metric Tons (MT)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="estimator-summary-card">
+            <div style="font-size:0.82rem;font-weight:700;color:var(--mut);letter-spacing:0.06em">ESTIMATED SPOT VALUE</div>
+            <div class="est-total-num" id="estTotal">₹0</div>
+
+            <div class="est-breakdown">
+              <div><span>Today's Spot Rate:</span> <strong id="estRate" style="color:#fff">₹0</strong></div>
+              <div><span>Subtotal (Base Value):</span> <strong id="estBase" style="color:#fff">₹0</strong></div>
+              <div><span>Statutory GST:</span> <strong id="estGst" style="color:#fff">₹0</strong></div>
+            </div>
+
+            <button class="btn full-w" id="btnBookRate">Lock Today's Rate & Book Order ➔</button>
+            <p style="color:var(--mut);font-size:0.75rem;text-align:center;margin-top:0.6rem">
+              Rate locked for 48 hours upon proforma confirmation. Direct mill dispatch available.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Ecosystem Cards -->
+    <section class="section-cards">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Enterprise Platforms & Technical Tools</h2>
+          <p>Explore our procedural engineering simulator, laboratory 3D inspection viewer, and AI diagnostics scanner.</p>
+        </div>
+
+        <div class="cards-grid">
+          <a class="card-feature" href="materials.html">
+            <div class="card-icon">🔬</div>
+            <h3>3D Materials Lab & Price Analysis</h3>
+            <p>Inspect Fe 550D rebar, structural I-beams, and cement in realistic PBR, wireframe CAD, and X-ray core views with live price graphs.</p>
+            <span class="card-link">Open 3D Materials Lab →</span>
+          </a>
+
+          <a class="card-feature" href="builder.html">
+            <div class="card-icon">🏛️</div>
+            <h3>3D House Building Simulator</h3>
+            <p>Customize floors and room typologies, visualize brick-by-brick construction, stage interior furnishings, and export automated brand-certified bills of materials.</p>
+            <span class="card-link">Launch 3D Simulator →</span>
+          </a>
+
+          <a class="card-feature" href="scan.html">
+            <div class="card-icon">📷</div>
+            <h3>AI Camera Quality Scanner</h3>
+            <p>Point your smartphone camera or upload site photos. Our AI model grades material integrity, flags defects, and generates downloadable inspection reports.</p>
+            <span class="card-link">Perform Material Scan →</span>
+          </a>
+
+          <a class="card-feature" href="contact.html">
+            <div class="card-icon">📑</div>
+            <h3>Live Rate Booking & RFP Desk</h3>
+            <p>Submit bulk project requirements for institutional pricing, logistics scheduling, and direct mill-test certificates delivered within one business day.</p>
+            <span class="card-link">Request Quote Online →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Standards & Technical Credibility -->
+    <section class="section-standards">
+      <div class="wrap">
+        <div class="section-head text-center">
+          <h2>Engineered to National Standards</h2>
+          <p>Every metric ton dispatched from Iraivan Steels yards satisfies rigorous civil engineering benchmarks.</p>
+        </div>
+
+        <div class="standards-grid">
+          <div class="std-item">
+            <h4>Iraivan Fe 550D TMT Rebar</h4>
+            <p>Manufactured through primary billet casting and online Tempcore water quenching. Delivers 575 N/mm² yield proof stress and superior seismic elongation.</p>
+          </div>
+          <div class="std-item">
+            <h4>ISMB Heavy Structural Beams</h4>
+            <p>Hot-rolled carbon steel structural girders with high section modulus, manufactured to IS 2062 specifications for industrial gantries and pre-engineered buildings.</p>
+          </div>
+          <div class="std-item">
+            <h4>Dalmia DSP & UltraTech Cement</h4>
+            <p>Specialized BOPP moisture-sealed packaging, optimized particle size distribution, and low heat of hydration for crack-resistant foundations.</p>
+          </div>
+          <div class="std-item">
+            <h4>Class-A Burnt Clay Bricks</h4>
+            <p>Crushing strength exceeding 10.5 N/mm² and water absorption under 12%, ensuring zero efflorescence and superior masonry bonding.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <div class="logo">
+          <span class="logo-symbol">IS</span>
+          <span>IRAIVAN <span class="logo-highlight">STEELS</span></span>
+        </div>
+        <p style="margin-top:0.8rem;color:var(--mut);font-size:0.9rem;line-height:1.6">
+          Premier steel manufacturing and building materials supply partner for heavy infrastructure, commercial complexes, and bespoke residential architecture.
+        </p>
+      </div>
+      <div>
+        <strong style="color:#fff">Technical Portals</strong>
+        <ul class="footer-links">
+          <li><a href="index.html">Home & Live Rates</a></li>
+          <li><a href="materials.html">3D Materials Showcase</a></li>
+          <li><a href="builder.html">3D House Simulator</a></li>
+          <li><a href="scan.html">AI Quality Scanner</a></li>
+          <li><a href="contact.html">Live Rate Booking Desk</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:#fff">Corporate Yard & Contact</strong>
+        <p style="color:#fff;font-weight:700;margin-top:0.5rem;font-size:0.95rem">R.Ajmalkhan</p>
+        <p style="color:var(--mut);font-size:0.85rem;line-height:1.55;margin-top:0.3rem">
+          No. 868, Near Kismath Ceramics / Kismath Titles,<br>
+          Rameswaram Main Road, Devakottai South,<br>
+          Devakottai, Tamil Nadu 630302
+        </p>
+        <p style="margin-top:0.5rem;font-size:0.85rem">
+          <a href="tel:+919940033757" style="color:var(--gold);font-weight:700">📞 +91 99400 33757</a><br>
+          <a href="mailto:asmi29042009@gmail.com" style="color:#00d2ff">✉ asmi29042009@gmail.com</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom wrap">
+      <span>© IRAIVAN STEELS LIMITED. All rights reserved.</span>
+      <span>National Steel Commodity Terminal</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/intro.js"></script>
+</body>
+</html>

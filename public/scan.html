@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AI Quality & Metallurgy Scanner | IRAIVAN STEELS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <!-- Persistent WebGL Architectural Background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Live Steel & Commodity Ticker Banner -->
+  <div class="ticker-bar">
+    <div class="ticker-badge">
+      <span class="pulse-dot"></span> LIVE COMMODITY FEED
+    </div>
+    <div class="ticker-track" id="tickerTrack">
+      <div class="ticker-item"><span class="ticker-name">Loading Live Steel & Commodity Rates…</span></div>
+    </div>
+    <div class="ticker-time" id="tickerTime">CONNECTING…</div>
+  </div>
+
+  <header>
+    <a class="logo" href="index.html">
+      <span class="logo-symbol">IS</span>
+      <span>IRAIVAN <span class="logo-highlight">STEELS</span></span>
+      <span class="logo-badge">PRIMARY MILLS</span>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="materials.html">Materials 3D & Rates</a>
+      <a href="builder.html">3D House Simulator</a>
+      <a href="scan.html" aria-current="page">AI Quality Scan</a>
+      <a href="contact.html">Live Rate Booking</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="corp-pill">★ COMPUTER VISION & METALLURGICAL QUALITY ASSURANCE</div>
+        <h2>AI-Powered Material Inspection Scanner</h2>
+        <p style="color:var(--mut);max-width:75ch">
+          Capture site materials via webcam or upload high-resolution photos. Our neural models evaluate surface integrity, detect cracks, efflorescence, or rust, and generate formal grading certificates.
+        </p>
+        <div class="row" style="margin-top:0.8rem;gap:0.8rem;align-items:center">
+          <span class="meta-pill" style="color:var(--green)">
+            <span class="pulse-dot"></span> <strong>AI VISION:</strong> GOOGLE GEMINI MULTIMODAL NEURAL MODEL ACTIVE
+          </span>
+          <span class="meta-pill">NABL LAB / IS 1786 PROTOCOLS</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:1.5rem">
+      <div class="wrap">
+        <div class="scan-workspace">
+          <!-- Viewfinder & Input Side -->
+          <div class="scanner-card">
+            <div class="viewfinder-box">
+              <video id="vid" playsinline muted></video>
+              <canvas id="snap"></canvas>
+              
+              <div class="viewfinder-overlay">
+                <div class="hud-corner top-left"></div>
+                <div class="hud-corner top-right"></div>
+                <div class="hud-corner bottom-left"></div>
+                <div class="hud-corner bottom-right"></div>
+                <div class="hud-crosshair">+</div>
+                <div id="hudScan" class="hud-scanning-line"></div>
+              </div>
+            </div>
+
+            <div class="scanner-controls">
+              <div class="row">
+                <button class="btn" id="camBtn">Start Camera</button>
+                <button class="btn alt" id="scanBtn" disabled>Capture & Scan</button>
+                <label class="btn ghost" style="cursor:pointer">
+                  📁 Upload Photo
+                  <input id="file" type="file" accept="image/*" hidden>
+                </label>
+              </div>
+
+              <div class="sample-picker">
+                <div class="sample-label">Or test immediately with laboratory sample specimens:</div>
+                <div class="sample-pills" id="samplePills"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diagnostic Results Side -->
+          <div class="result-card">
+            <div id="res" aria-live="polite">
+              <div class="res-placeholder">
+                <div class="scanner-icon">🔬</div>
+                <h3 style="color:#fff">Ready for Metallurgical / Material Scan</h3>
+                <p style="color:var(--mut);margin:0.5rem 0">
+                  Activate camera, upload a photo of TMT rebar, structural beam, cement, or bricks, or pick a sample specimen on the left.
+                </p>
+                <div class="test-coverage-info">
+                  <strong>Diagnostic Checks Performed:</strong>
+                  <span>Rebar Rib Symmetry & Corrosion Level · Beam Flange Delamination · Surface Micro-Cracking · Efflorescence & Salt Deposits · Compressive Matrix Morphology</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-bottom" style="border-top:none;padding:1rem 0">
+      <span>© IRAIVAN STEELS LIMITED. All rights reserved.</span>
+      <span>NABL Laboratory Reference Standards</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/scan.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>3D Materials Lab & Real-Time Price Terminal | IRAIVAN STEELS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <!-- Persistent WebGL Architectural Background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Live Steel & Commodity Ticker Banner -->
+  <div class="ticker-bar">
+    <div class="ticker-badge">
+      <span class="pulse-dot"></span> LIVE COMMODITY FEED
+    </div>
+    <div class="ticker-track" id="tickerTrack">
+      <div class="ticker-item"><span class="ticker-name">Loading Live Steel & Commodity Rates…</span></div>
+    </div>
+    <div class="ticker-time" id="tickerTime">CONNECTING…</div>
+  </div>
+
+  <header>
+    <a class="logo" href="index.html">
+      <span class="logo-symbol">IS</span>
+      <span>IRAIVAN <span class="logo-highlight">STEELS</span></span>
+      <span class="logo-badge">PRIMARY MILLS</span>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="materials.html" aria-current="page">Materials 3D & Rates</a>
+      <a href="builder.html">3D House Simulator</a>
+      <a href="scan.html">AI Quality Scan</a>
+      <a href="contact.html">Live Rate Booking</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <div class="corp-pill">★ 3D METALLURGICAL LAB & REAL-TIME PRICE BENCHMARK</div>
+        <h2>Interactive 3D Materials Showcase</h2>
+        <p style="color:var(--mut);max-width:75ch">
+          Inspect Fe 550D primary rebar, heavy ISMB structural girders, and cement in realistic 3D PBR, CAD wireframe, and X-ray internal core modes. Live commodity prices compared against previous day closing.
+        </p>
+
+        <!-- Product Selector Tabs & 3D Options Bar -->
+        <div class="materials-top-bar">
+          <div class="tabs" id="tabs"></div>
+
+          <!-- 3D Realistic View Options -->
+          <div class="options-3d-toolbar">
+            <span class="opt-3d-label">3D RENDER MODES:</span>
+            <button class="btn-3d-opt" id="btnOptPbr" aria-pressed="true">Realistic PBR</button>
+            <button class="btn-3d-opt" id="btnOptWire">Wireframe CAD</button>
+            <button class="btn-3d-opt" id="btnOptXray">X-Ray Core</button>
+            <button class="btn-3d-opt" id="btnOptLight">Lighting: Studio 💡</button>
+            <button class="btn-3d-opt" id="btnOptOrbit" aria-pressed="true">Auto-Orbit: ON</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:1.5rem">
+      <div class="wrap">
+        <div class="grid" style="grid-template-columns:1.25fr 1fr;gap:2rem">
+          <!-- 3D & Real Live Material Interactive Viewport -->
+          <div class="viewer-wrapper" id="viewerWrapper">
+            <!-- Mode Switcher Tabs for Material Box -->
+            <div class="viewer-mode-bar">
+              <button class="viewer-mode-btn active" id="btnModeReal" type="button">
+                <span>📷 Real Live Image</span>
+              </button>
+              <button class="viewer-mode-btn" id="btnMode3D" type="button">
+                <span>🧊 Interactive 3D Model</span>
+              </button>
+              <button class="viewer-mode-btn" id="btnModeSplit" type="button">
+                <span>⚡ Side-by-Side</span>
+              </button>
+            </div>
+
+            <!-- Centered Real Live Image Container -->
+            <div id="realLiveContainer" class="real-live-center-box">
+              <div class="real-live-inner">
+                <img id="realLiveImg" src="assets/materials/tmt_rebar.jpg" alt="Real Live Material Sample" class="real-live-img">
+                <div class="real-live-overlay-badge">
+                  <span class="live-dot"></span> REAL LIVE PHYSICAL SAMPLE
+                </div>
+                <div class="real-live-caption-bar" id="realLiveCaption">
+                  Iraivan Fe 550D TMT Rebar — Authentic Primary Billet Quenched Steel
+                </div>
+              </div>
+            </div>
+
+            <!-- 3D Interactive Viewport -->
+            <div id="viewer" aria-label="Interactive 3D steel material viewer"></div>
+
+            <div class="viewer-hint" id="viewerHint">
+              <span id="hintLeft">📷 Real Live High-Definition Yard Stock Photo</span>
+              <span id="hintRight">⚡ Primary Mill Certified · In-Stock</span>
+            </div>
+          </div>
+
+          <!-- Technical & Real-time Price Specifications Card -->
+          <div class="spec-card">
+            <div id="mBrand" class="brand-badge">IRAIVAN STEELS PRIMARY MILLS</div>
+            <h3 id="mName" style="font-size:1.75rem;margin:0.4rem 0;color:#fff"></h3>
+            <div id="mStandards" class="standards-badge">IS 1786:2008 Compliant</div>
+
+            <!-- Live Daily Price vs Previous Day (Gold-Style Realtime Box) -->
+            <div class="spec-price-highlight" id="mPriceBox"></div>
+
+            <p id="mTagline" style="font-weight:700;color:var(--ink-secondary);margin:0.8rem 0 0.4rem"></p>
+            <p id="mDesc" style="color:var(--mut);font-size:0.92rem;margin-bottom:1.2rem;line-height:1.55"></p>
+
+            <h4 style="font-size:0.88rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--gold);margin-top:1.2rem">Certified Engineering Tolerances</h4>
+            <dl id="mSpec" class="spec-dl"></dl>
+
+            <div class="row" style="margin-top:1.8rem">
+              <button class="btn" id="btnQuoteSpec">Lock Today's Rate & Inquire →</button>
+              <a class="btn alt" href="scan.html">Scan Physical Sample</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-bottom" style="border-top:none;padding:1rem 0">
+      <span>© IRAIVAN STEELS LIMITED. All rights reserved.</span>
+      <span>National Steel Commodity Terminal</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/materials.js"></script>
+</body>
+</html>

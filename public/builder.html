@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>3D House Building Simulator | IRAIVAN STEELS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <!-- Persistent WebGL Architectural Background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Live Steel & Commodity Ticker Banner -->
+  <div class="ticker-bar">
+    <div class="ticker-badge">
+      <span class="pulse-dot"></span> LIVE COMMODITY FEED
+    </div>
+    <div class="ticker-track" id="tickerTrack">
+      <div class="ticker-item"><span class="ticker-name">Loading Live Steel & Commodity Rates…</span></div>
+    </div>
+    <div class="ticker-time" id="tickerTime">CONNECTING…</div>
+  </div>
+
+  <header>
+    <a class="logo" href="index.html">
+      <span class="logo-symbol">IS</span>
+      <span>IRAIVAN <span class="logo-highlight">STEELS</span></span>
+      <span class="logo-badge">PRIMARY MILLS</span>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="materials.html">Materials 3D & Rates</a>
+      <a href="builder.html" aria-current="page">3D House Simulator</a>
+      <a href="scan.html">AI Quality Scan</a>
+      <a href="contact.html">Live Rate Booking</a>
+    </nav>
+  </header>
+
+  <main>
+    <section style="padding:1.5rem 5vw 3rem">
+      <div class="wrap" style="max-width:1380px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.2rem;flex-wrap:wrap;gap:1rem">
+          <div>
+            <div class="corp-pill">★ REAL-TIME PROCEDURAL ARCHITECTURAL ENGINE</div>
+            <h2>Interactive 3D House Building Simulator</h2>
+            <p style="color:var(--mut);max-width:70ch">
+              Customize floor counts and room layout, observe realistic brick-by-brick construction, stage interior finishes, and calculate branded Iraivan Fe 550D TMT and Dalmia Cement material schedules against today's spot prices.
+            </p>
+          </div>
+          <div style="color:var(--mut);font-size:0.85rem">
+            <span>🖱️ <strong>Controls:</strong> Left-drag to orbit · Shift+drag / Right-drag to pan · Scroll to zoom</span>
+          </div>
+        </div>
+
+        <div class="sim">
+          <div id="stage">
+            <div id="tools"></div>
+          </div>
+
+          <div id="panel">
+            <div class="chips" id="chips"></div>
+
+            <!-- Step 1: Architectural Planning -->
+            <div id="s1">
+              <h3>1. Architectural Configuration</h3>
+              <p class="note" style="margin-bottom:0.8rem">Select storey height and configure required room typologies.</p>
+
+              <b>Floor Storeys</b>
+              <div class="opt" id="oFloors"></div>
+
+              <b style="display:block;margin-top:0.8rem">Room Schedule & Typologies</b>
+              <div id="oRooms"></div>
+
+              <b style="display:block;margin-top:1rem">Roof Architecture</b>
+              <div class="opt" id="oRoof"></div>
+
+              <b>Exterior Wall Paint</b>
+              <div class="sw" id="oWall"></div>
+
+              <b>Flooring Specification</b>
+              <div class="opt" id="oFloor"></div>
+
+              <button class="btn full-w" id="gen" style="margin-top:1rem">Generate 3D Architectural Layout ➔</button>
+            </div>
+
+            <!-- Step 2: Real-time Construction Sequence -->
+            <div id="s2" hidden>
+              <h3>2. Real-Time Construction Sequence</h3>
+              <p class="note">Watch your home erected from excavation to final painting.</p>
+              
+              <div id="plan2d"></div>
+
+              <div class="bar"><i id="pb"></i></div>
+              <ul class="stg" id="stg"></ul>
+
+              <div class="row" style="margin-top:0.8rem">
+                <button class="btn" id="next">Next Stage →</button>
+                <button class="btn alt" id="auto">Auto Build</button>
+              </div>
+
+              <div class="opt" style="margin-top:0.8rem" id="oSpeed"></div>
+              <button class="btn alt" id="redo" style="margin-top:0.4rem;width:100%">⟲ Modify Layout Preferences</button>
+            </div>
+
+            <!-- Step 3: Interior Staging & Finishes -->
+            <div id="s3" hidden>
+              <h3>3. Interior Staging & Finishes</h3>
+              <p class="note">Click a room in the 3D viewport or pick below, then customize furniture and finishes.</p>
+
+              <div class="opt" id="rooms"></div>
+              <h3 id="rname" style="font-size:1.05rem;color:var(--gold);margin:0.6rem 0"></h3>
+
+              <b style="display:block;margin-top:0.6rem">Room Furnishings & Fixtures</b>
+              <div class="fl" id="fur"></div>
+
+              <b style="display:block;margin-top:0.8rem">Wall Color Scheme</b>
+              <div class="sw" id="iWall"></div>
+
+              <b>Interior Floor Surface</b>
+              <div class="opt" id="iFloor"></div>
+
+              <div class="row" style="margin-top:1rem">
+                <button class="btn alt" id="autof">Furnish All Rooms</button>
+                <button class="btn" id="done">Generate Material BOM ➔</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Real-Time Materials Estimate & Quote -->
+            <div id="s4" hidden>
+              <h3>4. Brand-Standard Material Estimate</h3>
+              <p class="note">Automated schedule of quantities derived from structural geometry with live commodity spot prices.</p>
+
+              <div id="chosen" style="margin:0.8rem 0"></div>
+
+              <dl class="tbl" id="est"></dl>
+
+              <p class="note" style="margin-top:0.8rem">
+                Quantities benchmarked against Iraivan Fe 550D TMT Rebar (₹61,800/MT spot rate), Dalmia DSP OPC 53 Cement, Class-A wire-cut burnt clay bricks, and Kajaria vitrified floorings.
+              </p>
+
+              <div class="row" style="margin-top:1.2rem">
+                <button class="btn" id="quote">Send Directly as Quote Request ➔</button>
+                <button class="btn alt" id="back3">Back to Interior</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-bottom" style="border-top:none;padding:1rem 0">
+      <span>© IRAIVAN STEELS LIMITED. All rights reserved.</span>
+      <span>Parametric Three.js Engine</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/furniture.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/builder.js"></script>
+</body>
+</html>
