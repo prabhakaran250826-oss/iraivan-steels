@@ -41,6 +41,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -48,9 +50,14 @@ body {
   background: var(--bg-deep);
   color: var(--ink);
   min-height: 100vh;
+  max-width: 100%;
   position: relative;
   overflow-x: hidden;
   letter-spacing: -0.01em;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -371,7 +378,22 @@ section {
 
 .wrap {
   max-width: 1240px;
+  width: 100%;
   margin: auto;
+}
+
+/* Prevent CSS Grid / Flex children from forcing horizontal overflow on mobile */
+.hero-grid > *,
+.sim > *,
+.scan-workspace > *,
+.contact-layout > *,
+.estimator-box > *,
+.materials-grid > *,
+.prices-grid > *,
+.cards-grid > *,
+.standards-grid > *,
+.footer-grid > * {
+  min-width: 0;
 }
 
 .page-head {
@@ -529,6 +551,7 @@ section {
 
 .anim-scrub-row input[type=range] {
   flex: 1;
+  min-width: 0;
   accent-color: var(--gold);
   cursor: pointer;
   height: 6px;
@@ -644,7 +667,7 @@ section {
 
 .prices-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
 }
 
@@ -819,6 +842,10 @@ section {
   border-radius: var(--radius-sm);
   font: 500 0.95rem var(--font-body);
   flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  text-overflow: ellipsis;
 }
 
 .input-row input:focus, .input-row select:focus {
@@ -867,7 +894,7 @@ section {
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -922,7 +949,7 @@ section {
 
 .standards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -1870,6 +1897,7 @@ label {
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--ink-secondary);
+  min-width: 0;
 }
 
 input, select, textarea {
@@ -1879,6 +1907,9 @@ input, select, textarea {
   border-radius: var(--radius-sm);
   background: var(--bg-input);
   color: #fff;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   transition: border-color 0.15s ease;
 }
 
@@ -1926,6 +1957,8 @@ input:focus, select:focus, textarea:focus {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   padding: 1.6rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .info-block h4 {
@@ -1965,7 +1998,7 @@ footer {
   background: #06090c;
   border-top: 1px solid var(--line);
   margin-top: 4rem;
-  padding-top: 3.5rem;
+  padding: 3.5rem 5vw 0;
 }
 
 .footer-grid {
@@ -2158,22 +2191,171 @@ footer {
 }
 
 @media (max-width: 640px) {
+  section {
+    padding: 2rem 4vw;
+  }
+  .hero-split {
+    padding: 2rem 4vw 2.5rem;
+  }
+  .hero-lead {
+    font-size: 1rem;
+    margin: 0.9rem 0 1.4rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 1.8rem;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+  }
+  .stage-viewport {
+    height: 300px;
+  }
+  .stage-head {
+    padding: 0.7rem 0.85rem;
+  }
+  .stage-header-actions {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .stage-overlay-stats {
+    top: 0.6rem;
+    left: 0.6rem;
+    right: 0.6rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.76rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .stage-controls-bar {
+    padding: 0.75rem 0.85rem;
+  }
+  .terminal-meta {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .meta-pill {
+    max-width: 100%;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+  .estimator-box {
+    padding: 1.2rem;
+    gap: 1.2rem;
+  }
+  .estimator-summary-card {
+    padding: 1.2rem;
+  }
+  .est-total-num {
+    font-size: 1.85rem;
+  }
+  .input-row {
+    flex-direction: column;
+  }
+  .input-row select[style] {
+    max-width: 100% !important;
+  }
+  .price-card {
+    padding: 1.15rem;
+  }
+  .price-main-val {
+    font-size: 1.65rem;
+  }
+  .card-feature, .std-item {
+    padding: 1.25rem;
+  }
   form { grid-template-columns: 1fr; }
+  .contact-form-card {
+    padding: 1.2rem;
+  }
+  .contact-form-card .btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+  .info-block {
+    padding: 1.2rem;
+  }
+  #stage {
+    height: 48vh;
+    min-height: 300px;
+  }
+  #tools {
+    top: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    max-width: none;
+  }
+  #tools button {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.72rem;
+  }
+  #panel {
+    padding: 1rem;
+  }
+  .tbl {
+    padding: 0.65rem;
+    gap: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  .viewfinder-box {
+    height: 270px;
+  }
+  .result-card {
+    padding: 1.2rem;
+    min-height: 260px;
+  }
+  .report-header, .engine-badge-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .scanner-controls .row .btn {
+    flex: 1 1 100%;
+    text-align: center;
+    justify-content: center;
+  }
   .hero-stats { grid-template-columns: 1fr; }
   header {
     flex-direction: column;
-    gap: 0.8rem;
-    padding: 0.8rem 4vw;
+    gap: 0.7rem;
+    padding: 0.75rem 4vw;
   }
   nav {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 0.15rem 0.5rem;
+    width: 100%;
   }
-  nav a { margin: 0.2rem 0.5rem; }
+  nav a { margin: 0.2rem 0.4rem; font-size: 0.84rem; }
+  .ticker-bar {
+    padding: 0.45rem 4vw;
+    gap: 0.6rem;
+  }
   .ticker-time { display: none; }
+  footer {
+    margin-top: 2.5rem;
+    padding: 2.2rem 4vw 0;
+  }
 }
 
 @media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .logo-badge {
+    font-size: 0.58rem;
+    padding: 0.12rem 0.4rem;
+    margin-left: 0.2rem;
+  }
+  .btn {
+    padding: 0.68rem 1rem;
+    font-size: 0.88rem;
+  }
   .viewer-wrapper {
     height: 350px;
   }
@@ -2196,17 +2378,33 @@ footer {
   .spec-card {
     padding: 1rem;
   }
+  .spec-price-highlight {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.8rem;
+  }
+  .spec-dl {
+    gap: 0.45rem 0.8rem;
+  }
   .spec-dl dt {
     font-size: 0.78rem;
   }
   .spec-dl dd {
     font-size: 0.82rem;
+    min-width: 0;
+    overflow-wrap: break-word;
   }
   .page-head {
-    padding: 1.4rem 0 0.8rem;
+    padding: 1.4rem 4vw 0.9rem;
   }
   .page-head h2 {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
+  }
+  #s2 .row .btn,
+  #s3 .row .btn,
+  #s4 .row .btn {
+    width: 100%;
+    text-align: center;
   }
 }
 

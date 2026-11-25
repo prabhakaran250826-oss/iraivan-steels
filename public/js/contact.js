@@ -52,7 +52,7 @@
           <p style="color:#fff;margin:0.25rem 0">
             Order Ref ID: <code style="color:var(--gold);font-weight:700;font-size:1.05rem">${result.id}</code> · Storage: <strong>${result.database}</strong>
           </p>
-          <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,210,255,0.1);border:1px solid rgba(0,210,255,0.3);padding:0.35rem 0.8rem;border-radius:6px;margin:0.6rem 0;font-size:0.88rem;color:#00d2ff">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.4rem;max-width:100%;background:rgba(0,210,255,0.1);border:1px solid rgba(0,210,255,0.3);padding:0.45rem 0.8rem;border-radius:6px;margin:0.6rem 0;font-size:0.85rem;color:#00d2ff;overflow-wrap:anywhere">
             <span>✉ Designated Recipient:</span>
             <strong style="color:#fff">asmi29042009@gmail.com</strong>
             <span style="color:var(--mut)">(R.Ajmalkhan · +91 99400 33757)</span>
@@ -63,10 +63,10 @@
           </p>
 
           <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1rem">
-            <a href="${mailtoLink}" target="_blank" rel="noopener noreferrer" class="btn" style="background:#00d2ff;color:#04070a;font-weight:700;display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;padding:0.6rem 1.1rem;border-radius:6px">
+            <a href="${mailtoLink}" target="_blank" rel="noopener noreferrer" class="btn" style="background:#00d2ff;color:#04070a;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;text-decoration:none;padding:0.6rem 1.1rem;border-radius:6px;max-width:100%;white-space:normal;text-align:center;overflow-wrap:anywhere">
               ✉ Send Direct Email to asmi29042009@gmail.com
             </a>
-            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn alt" style="background:#25D366;color:#fff;border-color:#25D366;font-weight:700;display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;padding:0.6rem 1.1rem;border-radius:6px">
+            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn alt" style="background:#25D366;color:#fff;border-color:#25D366;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;text-decoration:none;padding:0.6rem 1.1rem;border-radius:6px;max-width:100%;white-space:normal;text-align:center">
               💬 Instant WhatsApp (+91 99400 33757)
             </a>
           </div>
