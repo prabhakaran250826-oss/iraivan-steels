@@ -6,6 +6,53 @@ const fs = require('fs');
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Serve video files with proper MIME types + HTTP Range request support
+// This is CRITICAL for browser video playback (seeking, mobile buffering)
+// ─────────────────────────────────────────────────────────────────────────────
+const VIDEO_DIR = path.join(__dirname, 'public', 'assets', 'intro');
+app.get('/assets/intro/:filename', (req, res, next) => {
+  const filename = req.params.filename;
+  if (!/\.(webm|mp4|mov|mkv)$/i.test(filename)) return next();
+
+  const filePath = path.join(VIDEO_DIR, filename);
+  if (!fs.existsSync(filePath)) return next();
+
+  const stat = fs.statSync(filePath);
+  const fileSize = stat.size;
+  const ext = path.extname(filename).toLowerCase();
+  const mimeMap = { '.webm': 'video/webm', '.mp4': 'video/mp4', '.mov': 'video/quicktime', '.mkv': 'video/x-matroska' };
+  const contentType = mimeMap[ext] || 'application/octet-stream';
+
+  const range = req.headers.range;
+  if (range) {
+    // Parse Range header: "bytes=start-end"
+    const parts = range.replace(/bytes=/, '').split('-');
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : Math.min(start + 1048576, fileSize - 1); // 1 MB chunks
+    const chunkSize = (end - start) + 1;
+
+    res.writeHead(206, {
+      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunkSize,
+      'Content-Type': contentType,
+      'Cache-Control': 'public, max-age=86400'
+    });
+    fs.createReadStream(filePath, { start, end }).pipe(res);
+  } else {
+    res.writeHead(200, {
+      'Content-Length': fileSize,
+      'Content-Type': contentType,
+      'Accept-Ranges': 'bytes',
+      'Cache-Control': 'public, max-age=86400'
+    });
+    fs.createReadStream(filePath).pipe(res);
+  }
+});
+
+// Static files (CSS, JS, images, HTML) — after video route
 app.use(express.static(path.join(__dirname, 'public')));
 
 let isMongoConnected = false;

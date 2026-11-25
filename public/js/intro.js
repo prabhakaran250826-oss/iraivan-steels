@@ -324,45 +324,45 @@
       ]
     },
     {
-      id: 'elt-dome',
-      name: 'ELT Mega Rotating Steel Observatory Dome',
-      location: 'Cerro Armazones, Atacama',
-      badge: '★ WORLD\'S LARGEST ASTRONOMICAL ROTATING STEEL DOME',
+      id: 'hudson-yards-tower',
+      name: 'Shanghai Tower Mega-Structural Steel Core',
+      location: 'Shanghai, China',
+      badge: '★ 2,073-FT TWISTED COMPOSITE MEGA-STRUCTURAL STEEL TOWER',
       videoSources: [
-        { src: 'assets/intro/intro_dome_track.mp4', type: 'video/mp4' }
+        { src: 'assets/intro/intro_stadium_steel.webm', type: 'video/webm' }
       ],
-      playbackRate: 1.35,
-      labels: ['Heavy Steel Trusses', 'Track Diameter', 'Total Elevation', 'Anchor Concrete'],
+      playbackRate: 1.1,
+      labels: ['Structural Steel', 'Mega Columns', 'High-Strength Concrete', 'Tower Height'],
       phases: [
         {
           p: 0.00,
-          title: '1. Bedrock Leveling & Circular Anchor Ring',
-          sub: 'Precision rock blasting and monolithic circular reinforced concrete foundation ring at 3,046 m elevation.',
-          telemetry: { m1: '1,100 MT', m2: 'Ø 86 m', m3: '+22 m', m4: '2,800 m³' }
+          title: '1. Rock Socket Piling & Barrette Foundation',
+          sub: 'Installation of 1,000 reinforced barrette piles socketed 60 meters into Shanghai bedrock clay.',
+          telemetry: { m1: '4,200 MT', m2: '1,078 piles', m3: '12,000 m³', m4: '+0 m' }
         },
         {
-          p: 0.20,
-          title: '2. 360° Heavy Steel Bogie Track Alignment',
-          sub: 'Installation of high-tolerance circular steel rail tracks designed to rotate the 6,100 MT dome superstructure with zero vibration.',
-          telemetry: { m1: '2,400 MT', m2: 'Ø 86 m', m3: '+38 m', m4: '5,200 m³' }
+          p: 0.22,
+          title: '2. Mega-Column Grid & Inner Core Walls',
+          sub: 'Eight composite mega-columns housing steel sections encased in ultra-high-strength concrete, plus inner core slip-formed shear walls.',
+          telemetry: { m1: '18,000 MT', m2: '8 MegaCols', m3: '62,000 m³', m4: '+120 m' }
         },
         {
-          p: 0.44,
-          title: '3. Vertical Box Columns & Structural Truss Arch',
-          sub: 'Heavy crane erection of seismic-damped structural steel box girders forming the dome circular lattice.',
-          telemetry: { m1: '4,200 MT', m2: 'Ø 86 m', m3: '+56 m', m4: '7,400 m³' }
+          p: 0.48,
+          title: '3. Outrigger Truss Belts & Sky Lobbies',
+          sub: 'Six outrigger truss zone belts tying the inner core to outer mega-columns at every 15 floors, housing the sky-lobby transfer levels.',
+          telemetry: { m1: '33,500 MT', m2: '8 MegaCols', m3: '110,000 m³', m4: '+350 m' }
         },
         {
-          p: 0.68,
-          title: '4. Lateral Slit Doors & Geodesic Cap Frame',
-          sub: 'Assembly of two mega sliding lateral slit doors spanning 45 meters, opening unobstructed line of sight to the sky.',
-          telemetry: { m1: '5,500 MT', m2: 'Ø 86 m', m3: '+72 m', m4: '9,000 m³' }
+          p: 0.72,
+          title: '4. Twisted Composite Facade Framing',
+          sub: 'Progressive 120° twist of the glass curtain wall secondary steel framing reducing wind load by 24% over conventional towers.',
+          telemetry: { m1: '50,000 MT', m2: '8 MegaCols', m3: '155,000 m³', m4: '+500 m' }
         },
         {
-          p: 0.90,
-          title: '5. Insulated Cladding & Continuous Rotation Calibration',
-          sub: 'Aero-thermal insulated aluminum cladding panels and hydro-mechanical drive system calibrated for smooth 360° rotation.',
-          telemetry: { m1: '6,100 MT', m2: 'Ø 86 m', m3: '+80 m', m4: '9,000 m³' }
+          p: 0.92,
+          title: '5. Spiral Crown & Observation Deck Completion',
+          sub: 'Structural topping-out at 632 m with the spiral crown and highest observation deck in China at floor 118.',
+          telemetry: { m1: '55,000 MT', m2: '8 MegaCols', m3: '170,000 m³', m4: '+632 m' }
         }
       ]
     }
