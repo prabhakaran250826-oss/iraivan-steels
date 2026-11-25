@@ -234,53 +234,9 @@
   // -------------------------------------------------------------
   // 3. CINEMATIC 4K FAMOUS LANDMARK CONSTRUCTION INTRO (OVERLAY ONLY)
   //    Rotates dynamically on every site visit across world-renowned
-  //    engineering marvels and structural steel masterworks
+  //    engineering marvels and structural steel masterworks (100% letter-free)
   // -------------------------------------------------------------
   const FAMOUS_PROJECTS = [
-    {
-      id: 'eso-supernova',
-      name: 'ESO Supernova Architectural Center',
-      location: 'Munich, Germany',
-      badge: '★ ORGANIC CONCRETE SHELL & GEODESIC DOME',
-      videoSources: [
-        { src: 'assets/intro/intro_construction_4k.mp4', type: 'video/mp4' },
-        { src: 'assets/intro/intro_construction.mp4', type: 'video/mp4' }
-      ],
-      playbackRate: 1.35,
-      labels: ['Structural Steel', 'Faceted Glazing', 'Reinforced Shell', 'Clear Span'],
-      phases: [
-        {
-          p: 0.00,
-          title: '1. Earthwork & Monolithic Foundation',
-          sub: 'Sub-grade soil stabilization, excavation trenches and monolithic reinforced foundation slab with Iraivan Fe 550D rebar cages.',
-          telemetry: { m1: '320 MT', m2: '0 m²', m3: '2,100 m³', m4: '+1.2 m' }
-        },
-        {
-          p: 0.22,
-          title: '2. Double-Curved Reinforced Concrete Shell',
-          sub: 'Complex hyperbolic curved formwork with self-compacting high-density concrete perimeter shell walls.',
-          telemetry: { m1: '680 MT', m2: '0 m²', m3: '5,400 m³', m4: '+6.8 m' }
-        },
-        {
-          p: 0.48,
-          title: '3. Cantilever Upper Slabs & Inner Core',
-          sub: 'Monolithic casting of floating cantilever auditoriums, structural core ramps, and internal load-bearing partitions.',
-          telemetry: { m1: '950 MT', m2: '420 m²', m3: '7,600 m³', m4: '+11.4 m' }
-        },
-        {
-          p: 0.70,
-          title: '4. Freeform Structural Steel Geodesic Spaceframe',
-          sub: 'Heavy curved structural steel pipe members and nodal spherical connectors forming the architectural geodesic roof dome.',
-          telemetry: { m1: '1,250 MT', m2: '980 m²', m3: '8,400 m³', m4: '+15.5 m' }
-        },
-        {
-          p: 0.90,
-          title: '5. Faceted Insulated Glazing & Weather Envelope',
-          sub: 'Precision installation of 1,540 m² triangular acoustic insulated glass panels and architectural thermal envelope.',
-          telemetry: { m1: '1,250 MT', m2: '1,540 m²', m3: '8,400 m³', m4: '+15.5 m' }
-        }
-      ]
-    },
     {
       id: 'mercedes-benz-stadium',
       name: 'Mercedes-Benz Mega Steel Arena',
@@ -325,49 +281,6 @@
       ]
     },
     {
-      id: 'elt-dome',
-      name: 'ELT Mega Rotating Steel Observatory Dome',
-      location: 'Cerro Armazones, Atacama',
-      badge: '★ WORLD\'S LARGEST ASTRONOMICAL ROTATING STEEL DOME',
-      videoSources: [
-        { src: 'assets/intro/intro_dome_track.mp4', type: 'video/mp4' }
-      ],
-      playbackRate: 1.35,
-      labels: ['Heavy Steel Trusses', 'Track Diameter', 'Total Elevation', 'Anchor Concrete'],
-      phases: [
-        {
-          p: 0.00,
-          title: '1. Bedrock Leveling & Circular Anchor Ring',
-          sub: 'Precision rock blasting and monolithic circular reinforced concrete foundation ring at 3,046 m elevation.',
-          telemetry: { m1: '1,100 MT', m2: 'Ø 86 m', m3: '+22 m', m4: '2,800 m³' }
-        },
-        {
-          p: 0.20,
-          title: '2. 360° Heavy Steel Bogie Track Alignment',
-          sub: 'Installation of high-tolerance circular steel rail tracks designed to rotate the 6,100 MT dome superstructure with zero vibration.',
-          telemetry: { m1: '2,400 MT', m2: 'Ø 86 m', m3: '+38 m', m4: '5,200 m³' }
-        },
-        {
-          p: 0.44,
-          title: '3. Vertical Box Columns & Structural Truss Arch',
-          sub: 'Heavy crane erection of seismic-damped structural steel box girders forming the dome circular lattice.',
-          telemetry: { m1: '4,200 MT', m2: 'Ø 86 m', m3: '+56 m', m4: '7,400 m³' }
-        },
-        {
-          p: 0.68,
-          title: '4. Lateral Slit Doors & Geodesic Cap Frame',
-          sub: 'Assembly of two mega sliding lateral slit doors spanning 45 meters, opening unobstructed line of sight to the sky.',
-          telemetry: { m1: '5,500 MT', m2: 'Ø 86 m', m3: '+72 m', m4: '9,000 m³' }
-        },
-        {
-          p: 0.90,
-          title: '5. Insulated Cladding & Continuous Rotation Calibration',
-          sub: 'Aero-thermal insulated aluminum cladding panels and hydro-mechanical drive system calibrated for smooth 360° rotation.',
-          telemetry: { m1: '6,100 MT', m2: 'Ø 86 m', m3: '+80 m', m4: '9,000 m³' }
-        }
-      ]
-    },
-    {
       id: 'hudson-yards',
       name: 'Hudson Yards Manhattan Mega-Structure',
       location: 'New York City, USA',
@@ -407,6 +320,49 @@
           title: '5. Unitized Curtain Wall Facade & Cantilever Deck',
           sub: 'Low-E acoustic insulated glass unitized curtain wall envelopes and outward cantilever observation skydeck.',
           telemetry: { m1: '32,000 MT', m2: '300+ Units', m3: '85,000 m³', m4: '+395 m' }
+        }
+      ]
+    },
+    {
+      id: 'elt-dome',
+      name: 'ELT Mega Rotating Steel Observatory Dome',
+      location: 'Cerro Armazones, Atacama',
+      badge: '★ WORLD\'S LARGEST ASTRONOMICAL ROTATING STEEL DOME',
+      videoSources: [
+        { src: 'assets/intro/intro_dome_track.mp4', type: 'video/mp4' }
+      ],
+      playbackRate: 1.35,
+      labels: ['Heavy Steel Trusses', 'Track Diameter', 'Total Elevation', 'Anchor Concrete'],
+      phases: [
+        {
+          p: 0.00,
+          title: '1. Bedrock Leveling & Circular Anchor Ring',
+          sub: 'Precision rock blasting and monolithic circular reinforced concrete foundation ring at 3,046 m elevation.',
+          telemetry: { m1: '1,100 MT', m2: 'Ø 86 m', m3: '+22 m', m4: '2,800 m³' }
+        },
+        {
+          p: 0.20,
+          title: '2. 360° Heavy Steel Bogie Track Alignment',
+          sub: 'Installation of high-tolerance circular steel rail tracks designed to rotate the 6,100 MT dome superstructure with zero vibration.',
+          telemetry: { m1: '2,400 MT', m2: 'Ø 86 m', m3: '+38 m', m4: '5,200 m³' }
+        },
+        {
+          p: 0.44,
+          title: '3. Vertical Box Columns & Structural Truss Arch',
+          sub: 'Heavy crane erection of seismic-damped structural steel box girders forming the dome circular lattice.',
+          telemetry: { m1: '4,200 MT', m2: 'Ø 86 m', m3: '+56 m', m4: '7,400 m³' }
+        },
+        {
+          p: 0.68,
+          title: '4. Lateral Slit Doors & Geodesic Cap Frame',
+          sub: 'Assembly of two mega sliding lateral slit doors spanning 45 meters, opening unobstructed line of sight to the sky.',
+          telemetry: { m1: '5,500 MT', m2: 'Ø 86 m', m3: '+72 m', m4: '9,000 m³' }
+        },
+        {
+          p: 0.90,
+          title: '5. Insulated Cladding & Continuous Rotation Calibration',
+          sub: 'Aero-thermal insulated aluminum cladding panels and hydro-mechanical drive system calibrated for smooth 360° rotation.',
+          telemetry: { m1: '6,100 MT', m2: 'Ø 86 m', m3: '+80 m', m4: '9,000 m³' }
         }
       ]
     }
@@ -469,24 +425,47 @@
 
     if (video) {
       video.pause();
-      // Replace video sources
-      while (video.firstChild) {
-        video.removeChild(video.firstChild);
+
+      const fallback = document.getElementById('introPlayFallback');
+      if (fallback) fallback.style.display = 'none';
+
+      // Set direct source on video element for 100% browser compatibility
+      const primarySrc = (proj.videoSources && proj.videoSources[0]) ? proj.videoSources[0].src : '';
+      if (primarySrc) {
+        video.src = primarySrc;
       }
-      proj.videoSources.forEach(s => {
-        const srcEl = document.createElement('source');
-        srcEl.src = s.src;
-        srcEl.type = s.type;
-        video.appendChild(srcEl);
-      });
+
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+
       video.load();
-      video.playbackRate = proj.playbackRate || 1.3;
+      video.playbackRate = proj.playbackRate || 1.25;
+
+      video.onerror = (e) => {
+        console.warn('Video load error on project', currentProjectIdx, e);
+        // Automatically skip to next project if a browser codec issue occurs
+        setTimeout(() => {
+          if (isIntroActive) advanceToNextProject();
+        }, 800);
+      };
+
+      video.onplay = () => {
+        const fb = document.getElementById('introPlayFallback');
+        if (fb) fb.style.display = 'none';
+      };
+
       if (shouldAutoplay) {
         video.currentTime = 0;
         const playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch(err => {
-            console.warn('Autoplay prevented for landmark video:', err);
+            console.warn('Autoplay restricted by browser policy:', err.message);
+            const fb = document.getElementById('introPlayFallback');
+            if (fb) fb.style.display = 'flex';
           });
         }
       }
@@ -496,7 +475,7 @@
   function advanceToNextProject() {
     currentProjectIdx = (currentProjectIdx + 1) % FAMOUS_PROJECTS.length;
     // Persist next index so the next visit continues rotation
-    localStorage.setItem('iraivan_famous_project_idx', ((currentProjectIdx + 1) % FAMOUS_PROJECTS.length).toString());
+    localStorage.setItem('iraivan_famous_project_idx', currentProjectIdx.toString());
     loadFamousProject(currentProjectIdx, true);
   }
 
@@ -505,12 +484,11 @@
     const video = document.getElementById('introVideo');
     if (!overlay) return;
 
-    // Determine project index for this entry
+    // Determine project index for this entry (cycle sequentially every visit)
     let savedIdx = parseInt(localStorage.getItem('iraivan_famous_project_idx') || '0', 10);
     if (isNaN(savedIdx) || savedIdx < 0) savedIdx = 0;
-    savedIdx = savedIdx % FAMOUS_PROJECTS.length;
-    // Auto-advance for the next entry
-    localStorage.setItem('iraivan_famous_project_idx', ((savedIdx + 1) % FAMOUS_PROJECTS.length).toString());
+    savedIdx = (savedIdx + 1) % FAMOUS_PROJECTS.length;
+    localStorage.setItem('iraivan_famous_project_idx', savedIdx.toString());
 
     isIntroActive = true;
     overlay.style.display = 'flex';
@@ -520,6 +498,21 @@
     });
 
     loadFamousProject(savedIdx, true);
+
+    // Fallback tap-to-play button
+    const forcePlayBtn = document.getElementById('btnIntroForcePlay');
+    if (forcePlayBtn && video) {
+      forcePlayBtn.onclick = (e) => {
+        e.stopPropagation();
+        video.muted = true;
+        video.play().then(() => {
+          const fb = document.getElementById('introPlayFallback');
+          if (fb) fb.style.display = 'none';
+        }).catch(err => {
+          console.warn('Manual play attempt:', err);
+        });
+      };
+    }
 
     if (!introInitialized && video) {
       introInitialized = true;

@@ -13,11 +13,19 @@
 
   <!-- Cinematic 4K Real-World Construction Intro (Plays on Site Entry - Overlay Only) -->
   <div id="cinematicIntro" aria-hidden="true">
-    <video id="introVideo" class="intro-video-bg" autoplay muted playsinline preload="auto">
-      <source id="introVideoSrc" src="assets/intro/intro_construction_4k.mp4" type="video/mp4">
-      Your browser does not support the video tag.
+    <video id="introVideo" class="intro-video-bg" autoplay muted playsinline webkit-playsinline preload="auto">
+      <source id="introVideoSrc" src="assets/intro/intro_stadium_steel.webm" type="video/webm">
+      Your browser does not support HTML5 video.
     </video>
     <div class="intro-video-overlay"></div>
+
+    <!-- Fallback Play Button in case mobile/browser blocks autoplay -->
+    <div id="introPlayFallback" class="intro-play-fallback" style="display:none">
+      <button id="btnIntroForcePlay" class="intro-tap-play-btn" type="button">
+        <span class="intro-play-triangle">▶</span>
+        <span>Tap to Play Landmark Construction Intro</span>
+      </button>
+    </div>
 
     <div class="intro-hud">
       <div class="intro-brand-tag">

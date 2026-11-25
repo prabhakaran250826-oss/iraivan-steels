@@ -41,13 +41,39 @@
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Failed to submit booking');
 
+      const mailtoLink = result.mailtoUrl || `mailto:asmi29042009@gmail.com?subject=Iraivan%20Steels%20Booking%20Ref%20${result.id}`;
+      const waLink = result.whatsappUrl || `https://wa.me/919940033757`;
+
       msg.innerHTML = `
-        <div class="enquiry-success">
-          <div style="font-size:1.35rem;font-weight:800;color:var(--green);margin-bottom:0.3rem">✓ Spot Rate Booking Successfully Registered</div>
-          <p style="color:#fff">Order Ref ID: <code style="color:var(--gold);font-weight:700">${result.id}</code> · Database: <strong>${result.database}</strong></p>
-          <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--ink-secondary)">
-            Our Senior Sales Desk & Dispatch Logistics Officer will lock today's spot rate and issue your formal Proforma Invoice with mill test certificates within one business hour.
+        <div class="enquiry-success" style="background:rgba(0,230,118,0.06);border:1px solid rgba(0,230,118,0.4);border-radius:10px;padding:1.4rem;margin-top:1.2rem">
+          <div style="font-size:1.35rem;font-weight:800;color:var(--green);margin-bottom:0.4rem">
+            ✓ Spot Rate Booking Registered & Queued
+          </div>
+          <p style="color:#fff;margin:0.25rem 0">
+            Order Ref ID: <code style="color:var(--gold);font-weight:700;font-size:1.05rem">${result.id}</code> · Storage: <strong>${result.database}</strong>
           </p>
+          <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,210,255,0.1);border:1px solid rgba(0,210,255,0.3);padding:0.35rem 0.8rem;border-radius:6px;margin:0.6rem 0;font-size:0.88rem;color:#00d2ff">
+            <span>✉ Designated Recipient:</span>
+            <strong style="color:#fff">asmi29042009@gmail.com</strong>
+            <span style="color:var(--mut)">(R.Ajmalkhan · +91 99400 33757)</span>
+          </div>
+
+          <p style="margin-top:0.4rem;font-size:0.92rem;color:var(--ink-secondary);line-height:1.5">
+            Your enquiry is saved in our system. You can also send the complete enquiry directly to <strong>asmi29042009@gmail.com</strong> or WhatsApp with 1 click below for immediate price lock:
+          </p>
+
+          <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1rem">
+            <a href="${mailtoLink}" target="_blank" rel="noopener noreferrer" class="btn" style="background:#00d2ff;color:#04070a;font-weight:700;display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;padding:0.6rem 1.1rem;border-radius:6px">
+              ✉ Send Direct Email to asmi29042009@gmail.com
+            </a>
+            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn alt" style="background:#25D366;color:#fff;border-color:#25D366;font-weight:700;display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;padding:0.6rem 1.1rem;border-radius:6px">
+              💬 Instant WhatsApp (+91 99400 33757)
+            </a>
+          </div>
+
+          <div style="margin-top:0.9rem;font-size:0.82rem;color:var(--mut)">
+            ✓ Dispatch Address: No. 868, Near Kismath Ceramics / Kismath Titles, Rameswaram Main Road, Devakottai South, Tamil Nadu 630302.
+          </div>
         </div>
       `;
 

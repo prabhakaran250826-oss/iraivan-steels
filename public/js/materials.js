@@ -515,6 +515,7 @@ const MATERIALS_CATALOG = [
     selectMaterial(0);
 
     window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', () => setTimeout(onResize, 100));
     new IntersectionObserver(entries => {
       isVisible = entries[0].isIntersecting;
     }).observe(viewerEl);
@@ -616,6 +617,7 @@ const MATERIALS_CATALOG = [
         if (viewer) {
           viewer.style.display = 'block';
           onResize();
+          requestAnimationFrame(onResize);
         }
         if (hintLeft) hintLeft.textContent = '⟲ Drag to orbit 360° · Scroll to inspect ribs & flanges';
         if (hintRight) hintRight.textContent = '⚡ Physically Based Metallic Shaders';
@@ -626,6 +628,7 @@ const MATERIALS_CATALOG = [
         if (viewer) {
           viewer.style.display = 'block';
           onResize();
+          requestAnimationFrame(onResize);
         }
         if (hintLeft) hintLeft.textContent = '📷 Real Live Sample (Left) + 🧊 3D CAD Orbit (Right)';
         if (hintRight) hintRight.textContent = '⚡ Real vs 3D Engineering Inspection';

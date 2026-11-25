@@ -949,6 +949,13 @@ section {
 /* ==========================================================================
    Materials 3D Page with Realistic 3D Rendering Options
    ========================================================================== */
+.materials-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
 .materials-top-bar {
   display: flex;
   justify-content: space-between;
@@ -2000,8 +2007,9 @@ footer {
    Responsive Adaptations
    ========================================================================== */
 @media (max-width: 960px) {
-  .hero-grid, .sim, .scan-workspace, .contact-layout, .estimator-box {
+  .hero-grid, .sim, .scan-workspace, .contact-layout, .estimator-box, .materials-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   #panel { max-height: none; }
   .footer-grid {
@@ -2011,6 +2019,141 @@ footer {
   nav a {
     margin-left: 0.9rem;
     font-size: 0.88rem;
+  }
+  .viewer-wrapper {
+    height: 440px;
+  }
+  #stage {
+    height: 55vh;
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .materials-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+    margin: 1rem 0;
+  }
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tabs button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.82rem;
+  }
+  .options-3d-toolbar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.45rem 0.75rem;
+    scrollbar-width: none;
+  }
+  .options-3d-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+  .opt-3d-label {
+    white-space: nowrap;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+  .btn-3d-opt {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+  }
+  .viewer-wrapper {
+    height: 400px;
+  }
+  .viewer-mode-bar {
+    top: 0.6rem;
+    left: 0.6rem;
+    right: 0.6rem;
+    justify-content: space-between;
+    padding: 0.25rem;
+  }
+  .viewer-mode-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.35rem 0.45rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+  .real-live-center-box {
+    padding: 3.2rem 0.75rem 2.8rem;
+  }
+  .real-live-inner {
+    max-width: 100%;
+    height: 100%;
+    max-height: 250px;
+  }
+  .real-live-caption-bar {
+    font-size: 0.76rem;
+    padding: 0.6rem 0.8rem 0.4rem;
+  }
+  .viewer-hint {
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.68rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.15rem;
+  }
+  .viewer-wrapper.split-mode {
+    height: 520px;
+    flex-direction: column;
+  }
+  .viewer-wrapper.split-mode .real-live-center-box {
+    width: 100%;
+    height: 50%;
+    top: 2.8rem;
+    bottom: auto;
+    padding: 0.5rem;
+  }
+  .viewer-wrapper.split-mode .real-live-inner {
+    max-height: 100%;
+    height: 100%;
+  }
+  .viewer-wrapper.split-mode #viewer {
+    width: 100%;
+    height: 48%;
+    position: absolute;
+    top: auto;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+  }
+  .spec-card {
+    padding: 1.4rem;
+  }
+  .spec-card h3#mName {
+    font-size: 1.35rem;
+  }
+  .spec-price-val {
+    font-size: 1.4rem;
+  }
+  .spec-card .row {
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+  }
+  .spec-card .row .btn,
+  .spec-card .row .btn.alt {
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -2028,6 +2171,43 @@ footer {
   }
   nav a { margin: 0.2rem 0.5rem; }
   .ticker-time { display: none; }
+}
+
+@media (max-width: 480px) {
+  .viewer-wrapper {
+    height: 350px;
+  }
+  .real-live-center-box {
+    padding: 3rem 0.5rem 2.4rem;
+  }
+  .real-live-inner {
+    max-height: 210px;
+  }
+  .real-live-overlay-badge {
+    top: 0.4rem;
+    left: 0.4rem;
+    font-size: 0.62rem;
+    padding: 0.2rem 0.5rem;
+  }
+  .real-live-caption-bar {
+    font-size: 0.7rem;
+    padding: 0.45rem 0.55rem 0.25rem;
+  }
+  .spec-card {
+    padding: 1rem;
+  }
+  .spec-dl dt {
+    font-size: 0.78rem;
+  }
+  .spec-dl dd {
+    font-size: 0.82rem;
+  }
+  .page-head {
+    padding: 1.4rem 0 0.8rem;
+  }
+  .page-head h2 {
+    font-size: 1.5rem;
+  }
 }
 
 /* ==========================================================================
@@ -2075,6 +2255,48 @@ footer {
               linear-gradient(180deg, rgba(4, 7, 10, 0.75) 0%, transparent 25%, transparent 70%, rgba(4, 7, 10, 0.95) 100%);
   z-index: 2;
   pointer-events: none;
+}
+
+.intro-play-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  background: rgba(4, 7, 10, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.intro-tap-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 210, 255, 0.2);
+  border: 1.5px solid #00d2ff;
+  color: #fff;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+  transition: all 0.25s ease;
+  animation: pulse 2s infinite;
+}
+
+.intro-tap-play-btn:hover {
+  background: #00d2ff;
+  color: #04070a;
+  box-shadow: 0 0 45px rgba(0, 210, 255, 0.8);
+  transform: scale(1.04);
+}
+
+.intro-play-triangle {
+  font-size: 1.2rem;
+  color: var(--gold);
 }
 
 .intro-hud {

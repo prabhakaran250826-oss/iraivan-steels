@@ -156,6 +156,118 @@ app.get('/api/prices', (req, res) => {
   });
 });
 
+let nodemailer = null;
+try {
+  nodemailer = require('nodemailer');
+} catch (e) {
+  console.warn('nodemailer not available:', e.message);
+}
+
+// Ensure data directory exists for persistent enquiries storage
+const DATA_DIR = path.join(__dirname, 'data');
+const ENQUIRIES_FILE = path.join(DATA_DIR, 'enquiries.json');
+if (!fs.existsSync(DATA_DIR)) {
+  try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch (e) { }
+}
+
+const OWNER_EMAIL = 'asmi29042009@gmail.com';
+const OWNER_PHONE = '9940033757';
+const OWNER_NAME = 'R.Ajmalkhan';
+
+// Helper to save enquiry locally and persistently
+function persistEnquiryLocally(record) {
+  try {
+    let list = [];
+    if (fs.existsSync(ENQUIRIES_FILE)) {
+      try {
+        list = JSON.parse(fs.readFileSync(ENQUIRIES_FILE, 'utf8')) || [];
+      } catch (e) {
+        list = [];
+      }
+    }
+    list.unshift(record);
+    if (list.length > 500) list = list.slice(0, 500);
+    fs.writeFileSync(ENQUIRIES_FILE, JSON.stringify(list, null, 2), 'utf8');
+  } catch (e) {
+    console.error('Failed to write enquiry to local file:', e);
+  }
+}
+
+// Helper to dispatch email via SMTP if configured
+async function dispatchEmail(payload, id) {
+  const smtpUser = process.env.EMAIL_USER || process.env.SMTP_USER;
+  const smtpPass = process.env.EMAIL_PASS || process.env.SMTP_PASS;
+
+  if (nodemailer && smtpUser && smtpPass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: process.env.EMAIL_SERVICE || 'gmail',
+        auth: {
+          user: smtpUser,
+          pass: smtpPass
+        }
+      });
+
+      const mailOptions = {
+        from: `"Iraivan Steels Web Portal" <${smtpUser}>`,
+        to: OWNER_EMAIL,
+        replyTo: payload.email,
+        subject: `[IRAIVAN STEELS] New Spot Rate Booking / Enquiry - ${payload.name}`,
+        text: `NEW RATE BOOKING / ENQUIRY RECEIVED
+
+Order / Enquiry Ref ID: ${id}
+Recipient: ${OWNER_EMAIL}
+Proprietor: ${OWNER_NAME} (+91 ${OWNER_PHONE})
+
+CUSTOMER DETAILS:
+- Name: ${payload.name}
+- Phone: ${payload.phone}
+- Email: ${payload.email}
+- Material: ${payload.material}
+- Quantity: ${payload.quantity}
+- Delivery Location: ${payload.location}
+
+PROJECT REQUIREMENTS & SPECIFICATIONS:
+${payload.requirements}
+
+Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST
+Source: ${payload.source || 'Website'}
+`,
+        html: `
+          <div style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto;background:#060a0f;color:#e2ecf5;padding:24px;border-radius:8px;border:1px solid #1a2936">
+            <h2 style="color:#d4a017;margin-top:0">IRAIVAN STEELS - SPOT RATE BOOKING</h2>
+            <p style="color:#8ca0b3;font-size:14px">Ref ID: <strong style="color:#00d2ff">${id}</strong> · Destination: <strong>${OWNER_EMAIL}</strong></p>
+            <hr style="border:none;border-top:1px solid #1a2936;margin:16px 0"/>
+            <table style="width:100%;font-size:14px;line-height:1.6;color:#e2ecf5">
+              <tr><td style="color:#8ca0b3;width:140px">Customer Name:</td><td><strong>${payload.name}</strong></td></tr>
+              <tr><td style="color:#8ca0b3">Phone:</td><td><a href="tel:${payload.phone}" style="color:#00d2ff;font-weight:700">${payload.phone}</a></td></tr>
+              <tr><td style="color:#8ca0b3">Email:</td><td><a href="mailto:${payload.email}" style="color:#00d2ff">${payload.email}</a></td></tr>
+              <tr><td style="color:#8ca0b3">Material:</td><td><strong>${payload.material}</strong></td></tr>
+              <tr><td style="color:#8ca0b3">Quantity:</td><td>${payload.quantity}</td></tr>
+              <tr><td style="color:#8ca0b3">Location:</td><td>${payload.location}</td></tr>
+            </table>
+            <div style="margin-top:16px;background:#0d1520;padding:14px;border-radius:6px;border:1px solid #1f3347">
+              <strong style="color:#d4a017;display:block;margin-bottom:6px">Requirements & Specifications:</strong>
+              <pre style="white-space:pre-wrap;font-family:inherit;margin:0;color:#c0d2e2">${payload.requirements}</pre>
+            </div>
+            <p style="font-size:12px;color:#6b7f94;margin-top:20px">Delivered to ${OWNER_EMAIL} for Proprietor ${OWNER_NAME} (${OWNER_PHONE}), Devakottai, Tamil Nadu.</p>
+          </div>
+        `
+      };
+
+      await transporter.sendMail(mailOptions);
+      console.log(`[EMAIL DISPATCH SUCCESS] Enquiry ${id} sent via SMTP to ${OWNER_EMAIL}`);
+      return true;
+    } catch (err) {
+      console.error('[EMAIL DISPATCH ERROR]', err.message);
+      return false;
+    }
+  } else {
+    console.log(`[DISPATCH RECORD] Enquiry ${id} recorded for destination ${OWNER_EMAIL}. (SMTP credentials optional in .env for direct silent mail).`);
+    return false;
+  }
+}
+
 app.post('/api/enquiry', limit, async (req, res) => {
   try {
     const b = req.body || {};
@@ -172,18 +284,76 @@ app.post('/api/enquiry', limit, async (req, res) => {
       quantity: b.quantity || 'Spot Quote as per Daily Rate',
       location: b.location || 'Site location pending',
       requirements: b.requirements.trim(),
-      source: b.source || (b.requirements.includes('IRAIVAN STEELS') ? '3d_simulator' : 'direct_enquiry')
+      source: b.source || (b.requirements.includes('IRAIVAN STEELS') ? '3d_simulator' : 'direct_enquiry'),
+      recipientEmail: OWNER_EMAIL,
+      owner: OWNER_NAME,
+      ownerPhone: OWNER_PHONE
     };
+
+    let docId = 'ENQ-' + Date.now();
+    let dbStatus = 'Local Fallback (MongoDB offline)';
 
     if (isMongoConnected) {
       const doc = await Enquiry.create(payload);
-      return res.status(201).json({ ok: true, id: doc._id, database: 'MongoDB Atlas / Connected' });
+      docId = doc._id.toString();
+      dbStatus = 'MongoDB Atlas / Connected';
     } else {
-      const fallbackDoc = { ...payload, _id: 'local_' + Date.now(), createdAt: new Date() };
+      const fallbackDoc = { ...payload, _id: docId, createdAt: new Date() };
       fallbackEnquiries.push(fallbackDoc);
-      console.log('Saved enquiry to local store (MongoDB offline):', fallbackDoc._id, fallbackDoc.name);
-      return res.status(201).json({ ok: true, id: fallbackDoc._id, database: 'Local Fallback (MongoDB offline)' });
     }
+
+    // Persist permanently in data/enquiries.json
+    persistEnquiryLocally({ ...payload, _id: docId, createdAt: new Date().toISOString() });
+
+    // Attempt direct SMTP dispatch
+    const emailSent = await dispatchEmail(payload, docId);
+
+    // Generate bulletproof mailto link with destination asmi29042009@gmail.com
+    const emailSubject = encodeURIComponent(`[IRAIVAN STEELS] Rate Booking / Enquiry Ref: ${docId} - ${payload.name}`);
+    const emailBody = encodeURIComponent(
+      `To: ${OWNER_NAME} (${OWNER_EMAIL})\n` +
+      `Proprietor: IRAIVAN STEELS, Devakottai (Ph: +91 ${OWNER_PHONE})\n\n` +
+      `Dear Sir,\n\n` +
+      `I have submitted a Spot Rate Booking / Material Enquiry on your portal with reference ${docId}:\n\n` +
+      `CUSTOMER DETAILS:\n` +
+      `- Name: ${payload.name}\n` +
+      `- Phone: ${payload.phone}\n` +
+      `- Email: ${payload.email}\n` +
+      `- Material: ${payload.material}\n` +
+      `- Quantity: ${payload.quantity}\n` +
+      `- Location: ${payload.location}\n\n` +
+      `SPECIFICATIONS & REQUIREMENTS:\n` +
+      `${payload.requirements}\n\n` +
+      `Please lock today's spot rate and send the formal Proforma Invoice with dispatch schedule.\n\n` +
+      `Thank you,\n${payload.name}`
+    );
+    const mailtoUrl = `mailto:${OWNER_EMAIL}?subject=${emailSubject}&body=${emailBody}`;
+
+    // Generate WhatsApp direct message link
+    const waText = encodeURIComponent(
+      `*IRAIVAN STEELS - Spot Rate Booking*\n` +
+      `*Ref ID:* ${docId}\n` +
+      `*Name:* ${payload.name}\n` +
+      `*Phone:* ${payload.phone}\n` +
+      `*Material:* ${payload.material}\n` +
+      `*Quantity:* ${payload.quantity}\n` +
+      `*Location:* ${payload.location}\n` +
+      `*Requirements:*\n${payload.requirements}\n\n` +
+      `Please confirm price lock and invoice.`
+    );
+    const whatsappUrl = `https://wa.me/91${OWNER_PHONE}?text=${waText}`;
+
+    return res.status(201).json({
+      ok: true,
+      id: docId,
+      database: dbStatus,
+      recipient: OWNER_EMAIL,
+      owner: OWNER_NAME,
+      phone: OWNER_PHONE,
+      emailDispatched: emailSent,
+      mailtoUrl: mailtoUrl,
+      whatsappUrl: whatsappUrl
+    });
   } catch (e) {
     console.error('Enquiry save error:', e);
     res.status(e.name === 'ValidationError' ? 400 : 500).json({
@@ -254,7 +424,7 @@ function simulatedInspectionReport(base64Data) {
   // Algorithmic inspection fallback based on image buffer characteristics
   const buf = Buffer.from(base64Data, 'base64');
   const len = buf.length;
-  
+
   // Sample byte statistics across buffer
   let sum = 0, sumSq = 0;
   const step = Math.max(1, Math.floor(len / 500));
@@ -271,7 +441,7 @@ function simulatedInspectionReport(base64Data) {
 
   // Determine material archetype from byte patterns & payload size
   let material, grade, score, defects, checks, note;
-  
+
   if (len < 15000) {
     // Small or low-detail specimen
     material = 'Civil Materials Concrete / Core Sample';
@@ -397,3 +567,5 @@ if (mongoUri) {
       console.warn('! Operating in local resilience mode for enquiries.');
     });
 }
+
+module.exports = app;
